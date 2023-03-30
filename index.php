@@ -1,8 +1,8 @@
 <?php
 
-$rootDir = $_ENV['ROOT_DIR'] ?: __DIR__;
+$rootDir = $_ENV['ROOT_DIR'] ?? __DIR__;
 
-if (null !== $_GET['download']) {
+if (isset($_GET['download'])) {
     $parts = explode('/', $_GET['download']);
     $filename = end($parts);
 
