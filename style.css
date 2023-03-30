@@ -31,6 +31,12 @@ h1 {
   }
 }
 
+@media (min-width: 800px) {
+  .box {
+    max-width: 600px;
+  }
+}
+
 .links, .links a {
     text-align: right;
     color: #888;
