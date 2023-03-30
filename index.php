@@ -1,5 +1,21 @@
 <?php
 
+$rootDir = $_ENV['ROOT_DIR'] ?: __DIR__;
+
+if (null !== $_GET['download']) {
+    $parts = explode('/', $_GET['download']);
+    $filename = end($parts);
+
+    $file = $rootDir.$_GET['download'];
+
+    header('Content-Type: application/octet-stream');
+    header("Content-Transfer-Encoding: Binary");
+    header("Content-disposition: attachment; filename=\"$filename\"");
+    readfile($file);
+
+    exit;
+}
+
 function printdir(string $dir, string $webPath, string $rootPath = null, int $maxDepth = 2): void {
     $ignoredFiles = [
         '.',
@@ -36,8 +52,10 @@ function printdir(string $dir, string $webPath, string $rootPath = null, int $ma
         if ($isExpendableDir) {
             echo "<a href=\"#\" data-toggle=\"$file\">$file</a>";
             printdir($file, $webPath.$file.'/', $fullPath, $maxDepth - 1);
+        } elseif ($isDir) {
+            echo $file;
         } else {
-            echo "<a href=\"$webPath$file\" target=\"_blank\">$file</a>";
+            echo "<a href=\"?download=$webPath$file\" target=\"_blank\">$file</a>";
         }
 
         echo '</li>';
@@ -57,7 +75,7 @@ function printdir(string $dir, string $webPath, string $rootPath = null, int $ma
     <script src="main.js"></script>
   </head>
   <body>
-    <h1>Collapsible Directory List</h1>
+    <h1>Directory listing</h1>
 
     <div class="box">
         <div class="links">
@@ -65,7 +83,7 @@ function printdir(string $dir, string $webPath, string $rootPath = null, int $ma
         </div>
 
         <div class="tree">
-            <?php printdir(__DIR__, '/'); ?>
+            <?php printdir($rootDir, '/'); ?>
         </div>
     </div>
   </body>
