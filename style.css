@@ -26,14 +26,9 @@ h1 {
 @media (min-width: 544px) {
   .box {
     margin: 40px auto;
-    max-width: 440px;
+    width: fit-content;
+    min-width: 400px;
     padding: 40px;
-  }
-}
-
-@media (min-width: 800px) {
-  .box {
-    max-width: 600px;
   }
 }
 
