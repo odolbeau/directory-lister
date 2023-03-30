@@ -1,6 +1,6 @@
 <?php
 
-function printdir(string $dir, string $basePath = null, int $maxDepth = 2): void {
+function printdir(string $dir, string $webPath, string $rootPath = null, int $maxDepth = 2): void {
     $ignoredFiles = [
         '.',
         '..',
@@ -9,10 +9,10 @@ function printdir(string $dir, string $basePath = null, int $maxDepth = 2): void
         'main.js',
     ];
 
-    $fullPath = null !== $basePath ? $basePath.'/'.$dir : $dir;
+    $fullPath = null !== $rootPath ? $rootPath.'/'.$dir : $dir;
 
     $files = scandir($fullPath);
-    if (null === $basePath) {
+    if (null === $rootPath) {
         echo "<ul>";
     } else {
         echo "<ul id=\"$dir\">";
@@ -35,9 +35,9 @@ function printdir(string $dir, string $basePath = null, int $maxDepth = 2): void
 
         if ($isExpendableDir) {
             echo "<a href=\"#\" data-toggle=\"$file\">$file</a>";
-            printdir($file, $fullPath, $maxDepth - 1);
+            printdir($file, $webPath.$file.'/', $fullPath, $maxDepth - 1);
         } else {
-            echo $file;
+            echo "<a href=\"$webPath$file\" target=\"_blank\">$file</a>";
         }
 
         echo '</li>';
@@ -65,7 +65,7 @@ function printdir(string $dir, string $basePath = null, int $maxDepth = 2): void
         </div>
 
         <div class="tree">
-            <?php printdir(__DIR__); ?>
+            <?php printdir(__DIR__, '/'); ?>
         </div>
     </div>
   </body>
