@@ -1,5 +1,5 @@
 FROM php:8.2-fpm
 
-COPY . /var/www/directory-lister
+COPY . /var/www/html
 
-WORKDIR /var/www/directory-lister
+WORKDIR /var/www/html
