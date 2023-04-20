@@ -1,3 +1,9 @@
+# This project is deprecated!
+
+**/!\ Consider using https://github.com/svenstaro/miniserve 🎉**
+
+Thanks @pierrelemee! 😘
+
 # List files & directories and allow direct download
 
 Disclaimer: this project is far from secure and contains huge security breachs!
